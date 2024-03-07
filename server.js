@@ -16,10 +16,27 @@ MongoClient.connect(connectionString)
         const quotesCollection = db.collection('quotes');
 
         // Configurar Express
-        app.use(bodyParser.urlencoded({ extended: true }));
+        app.set('view engine', 'ejs')
+
+        app.use(bodyParser.urlencoded({ extended: true })); //para leer datos de form
+
+        app.use(express.static('public')) //para acceder a los PUT (update)
+
+        app.use(bodyParser.json()) // para leer JSON
 
         app.get('/', (req, res) => {
-            res.sendFile(__dirname + '/index.html');
+            //Obtengo la info de la coleccion quotes y la renderizo
+            db.collection('quotes')
+                .find()
+                .toArray()
+                .then(results => {
+                    res.render('index.ejs', { quotes: results })    
+                })
+                .catch(error => {
+                    console.error('Error fetching quotes from the database:', error);
+                })
+            //Seguidamente respondo con el archivo index   
+            //res.sendFile(__dirname + '/index.html');
         });
 
         app.post('/quotes', (req, res) => {
@@ -31,6 +48,10 @@ MongoClient.connect(connectionString)
               })
               .catch(error => console.error(error));
         })
+
+        app.put('/quotes', (req, res) => {
+            console.log(req.body)
+          })
 
         app.listen(3000, () => {
           console.log('Listening on 3000');
