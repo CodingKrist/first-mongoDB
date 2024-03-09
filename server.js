@@ -82,6 +82,12 @@ MongoClient.connect(connectionString)
               .catch(error => console.error(error))
           })
 
+        // Manejador de errores
+        app.use((err, req, res, next) => {
+          console.error(err.stack);
+          res.status(500).send('Something went wrong!');
+        });
+
         app.listen(PORT, () => {
           console.log(`Listening on port ${PORT}`);
         });
