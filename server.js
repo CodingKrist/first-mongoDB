@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3977;
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
-const connectionString = process.env.DB_PASSWORD;
+const connectionString = process.env.MONGODB_URI;
 
 // Conectar a la base de datos antes de iniciar el servidor
 MongoClient.connect(connectionString)
