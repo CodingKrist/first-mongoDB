@@ -4,6 +4,11 @@ const bodyParser = require ('body-parser');
 const app = express();
 require('dotenv').config()
 
+const PORT = process.env.PORT || 3977;
+
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+
 const connectionString = process.env.DB_PASSWORD;
 
 // Conectar a la base de datos antes de iniciar el servidor
@@ -82,8 +87,8 @@ MongoClient.connect(connectionString)
               .catch(error => console.error(error))
           })
 
-        app.listen(3000, () => {
-          console.log('Listening on 3000');
+        app.listen(PORT, () => {
+          console.log(`Listening on port ${PORT}`);
         });
 
     })
