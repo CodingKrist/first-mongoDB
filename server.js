@@ -2,8 +2,9 @@ const express = require('express');
 const MongoClient = require('mongodb').MongoClient;
 const bodyParser = require ('body-parser');
 const app = express();
+require('dotenv').config()
 
-const connectionString = 'mongodb+srv://condingkrist:codingkrist@cluster0.dya8dlf.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const connectionString = process.env.DB_PASSWORD;
 
 // Conectar a la base de datos antes de iniciar el servidor
 MongoClient.connect(connectionString)
