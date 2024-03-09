@@ -1,6 +1,7 @@
 const express = require('express');
+
 const MongoClient = require('mongodb').MongoClient;
-const bodyParser = require ('body-parser');
+//const bodyParser = require ('body-parser');
 const app = express();
 require('dotenv').config()
 
@@ -9,7 +10,7 @@ const PORT = 3977;
 const connectionString = process.env.MONGODB_URI;
 
 // Conectar a la base de datos antes de iniciar el servidor
-MongoClient.connect(mongodb)
+MongoClient.connect(connectionString)
     .then(client => {
 
         console.log('Connected to Database');
