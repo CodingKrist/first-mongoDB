@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 3977;
 const connectionString = process.env.MONGODB_URI;
 
 // Conectar a la base de datos antes de iniciar el servidor
-MongoClient.connect(connectionString)
+MongoClient.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(client => {
 
         console.log('Connected to Database');
