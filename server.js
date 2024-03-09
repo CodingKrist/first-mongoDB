@@ -4,12 +4,12 @@ const bodyParser = require ('body-parser');
 const app = express();
 require('dotenv').config()
 
-const PORT = process.env.PORT || 3977;
+const PORT = 3977;
 
 const connectionString = process.env.MONGODB_URI;
 
 // Conectar a la base de datos antes de iniciar el servidor
-MongoClient.connect(connectionString, { useNewUrlParser: true, useUnifiedTopology: true })
+MongoClient.connect(connectionString)
     .then(client => {
 
         console.log('Connected to Database');
@@ -88,9 +88,9 @@ MongoClient.connect(connectionString, { useNewUrlParser: true, useUnifiedTopolog
           res.status(500).send('Something went wrong!');
         });
 
-        app.listen(PORT, () => {
-          console.log(`Listening on port ${PORT}`);
-        });
+        app.listen(process.env.PORT || PORT, () => {
+          console.log(`The server is running on port ${PORT}`)
+        })
 
     })
 
