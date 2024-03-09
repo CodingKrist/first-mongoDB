@@ -6,9 +6,6 @@ require('dotenv').config()
 
 const PORT = process.env.PORT || 3977;
 
-app.use(express.urlencoded({ extended: true }))
-app.use(express.json())
-
 const connectionString = process.env.MONGODB_URI;
 
 // Conectar a la base de datos antes de iniciar el servidor
@@ -24,11 +21,9 @@ MongoClient.connect(connectionString)
         // Configurar Express
         app.set('view engine', 'ejs')
 
-        app.use(bodyParser.urlencoded({ extended: true })); //para leer datos de form
-
+        app.use(express.urlencoded({ extended: true })); //para leer datos de form
         app.use(express.static('public')) //para acceder a los PUT (update)
-
-        app.use(bodyParser.json()) // para leer JSON
+        app.use(express.json()) // para leer JSON
 
         app.get('/', (req, res) => {
             //Obtengo la info de la coleccion quotes y la renderizo
